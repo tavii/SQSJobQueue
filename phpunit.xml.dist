@@ -10,6 +10,9 @@
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src/</directory>
         </whitelist>
+        <blacklist>
+            <file>./src/*/*Interface.php</file>
+        </blacklist>
     </filter>
 
     <logging>
