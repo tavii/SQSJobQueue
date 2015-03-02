@@ -28,13 +28,13 @@ class Queue implements QueueInterface
      */
     public function push(JobInterface $job)
     {
-        return $this->client->sendMessage([
+        return $this->client->sendMessage(array(
             'QueueUrl' => $job->getName(),
-            'MessageBody' => json_encode([
+            'MessageBody' => json_encode(array(
                 'name' => $job->getName(),
                 'args' => $job->getArgs()
-            ])
-        ]);
+            ))
+        ));
     }
 
     /**
@@ -65,10 +65,10 @@ class Queue implements QueueInterface
     public function delete(MessageInterface $message)
     {
         $messageArray = $message->getMessage();
-        return $this->client->deleteMessage([
+        return $this->client->deleteMessage(array(
             'QueueUrl' => $messageArray['QueueUrl'],
             'ReceiptHandle' => $messageArray['ReceiptHandle']
-        ]);
+        ));
     }
 
 
