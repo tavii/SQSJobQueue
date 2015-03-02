@@ -1,6 +1,7 @@
 {
     "name": "tavii/sqs-job-queue",
     "description": "amazon sqs job queue",
+    "version": "0.0.1",
     "license": "MIT",
     "authors": [
         {
