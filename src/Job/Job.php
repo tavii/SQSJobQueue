@@ -15,7 +15,7 @@ abstract class Job implements JobInterface
     /**
      * @param array $args
      */
-    public function __construct(array $args = [])
+    public function __construct(array $args = array())
     {
         $this->args = $args;
     }
