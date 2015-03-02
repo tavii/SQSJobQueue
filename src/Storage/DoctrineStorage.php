@@ -48,7 +48,7 @@ class DoctrineStorage implements StorageInterface
         $params['status'] = self::SERVER_STATUS_RUN;
 
         if ($server) {
-            $sql .= " AND worker = :worker";
+            $sql .= " AND server = :server";
             $params['server'] = $server;
         }
         if ($procId) {

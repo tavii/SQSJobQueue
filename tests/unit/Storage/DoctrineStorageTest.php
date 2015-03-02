@@ -58,7 +58,7 @@ class DoctrineStorageTest extends \PHPUnit_Framework_TestCase
      */
     public function ワーカーの情報を取得することができる()
     {
-        $sql = "SELECT * FROM sqs_workers WHERE queue = :queue AND status = :status AND worker = :worker AND proc_id = :proc_id";
+        $sql = "SELECT * FROM sqs_workers WHERE queue = :queue AND status = :status AND server = :server AND proc_id = :proc_id";
         $queue = 'test_queue';
         $server = 'test.com';
         $procId = 12345;
