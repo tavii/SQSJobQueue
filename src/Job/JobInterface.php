@@ -8,7 +8,6 @@ namespace Tavii\SQSJobQueue\Job;
 interface JobInterface
 {
     /**
-     * @param array $args
      * @return booelan
      */
     public function run();

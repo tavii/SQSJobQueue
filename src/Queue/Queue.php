@@ -16,7 +16,6 @@ class Queue implements QueueInterface
 
     /**
      * @param SqsClient $client
-     * @param string $name queue name
      */
     public function __construct(SqsClient $client)
     {

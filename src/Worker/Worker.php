@@ -8,7 +8,7 @@ use Tavii\SQSJobQueue\Storage\StorageInterface;
 class Worker implements WorkerInterface
 {
     /**
-     * @var SqsClient
+     * @var QueueInterface
      */
     private $queue;
 

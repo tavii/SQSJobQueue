@@ -34,12 +34,7 @@ class RedisStorage implements StorageInterface
     public function get($queue, $server = null, $procId = null)
     {
         $key = self::KEY_BASE.".{$server}.{$queue}:{$procId}";
-        return $this->redis->get($key, array(
-            $server,
-            $queue,
-            $procId,
-            $status
-        ));
+        return $this->redis->get($key);
     }
 
     public function remove($queue, $server = null, $procId = null)
