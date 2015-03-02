@@ -11,7 +11,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->client = Phake::mock('Aws\SQs\SqsClient');
+        $this->client = Phake::mock('Aws\Sqs\SqsClient');
     }
 
     /**
