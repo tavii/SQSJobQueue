@@ -29,6 +29,10 @@ class Worker implements WorkerInterface
     public function run($name)
     {
         $message = $this->queue->pull($name);
+        if (is_null($message)) {
+            return false;
+        }
+
         if ($message->getJob()->run()) {
             $this->queue->delete($message);
             return true;
