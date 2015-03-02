@@ -2,7 +2,7 @@
 namespace Tavii\SQSJobQueue\Queue;
 
 use Phake;
-use Aws\SQs\SqsClient;
+use Aws\Sqs\SqsClient;
 use Tavii\SQSJobQueue\Job\Job;
 
 class QueueTest extends \PHPUnit_Framework_TestCase
