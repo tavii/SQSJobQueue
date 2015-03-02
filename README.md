@@ -1,6 +1,6 @@
 # SQSJobQueue
 
-https://travis-ci.org/tavii/SQSJobQueue.svg
+![](https://travis-ci.org/tavii/SQSJobQueue.svg)
 
 Amazon SQSを利用したJobQueueライブラリです。
 
