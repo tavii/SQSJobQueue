@@ -1,6 +1,7 @@
 <?php
 namespace Tavii\SQSJobQueue\Worker;
 
+use Tavii\SQSJobQueue\Exception\RuntimeException;
 use Tavii\SQSJobQueue\Queue\Queue;
 use Tavii\SQSJobQueue\Queue\QueueInterface;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
@@ -47,7 +48,7 @@ class Worker implements WorkerInterface
     {
         $pid = pcntl_fork();
         if ($pid === -1) {
-            throw new \RuntimeException('Could not fork the process');
+            throw new RuntimeException('Could not fork the process');
         } elseif ($pid > 0) {
             if (function_exists('gethostname')) {
                 $server = gethostname();
