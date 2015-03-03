@@ -56,7 +56,7 @@ class Queue implements QueueInterface
 
         if (!empty($messages)) {
             $args = json_decode($messages['Body'], true);
-            $job = new $args['name']($args['args']);
+            $job = new $args['className']($args['args']);
             return new Message($messages, $job);
         }
         return null;

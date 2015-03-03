@@ -50,7 +50,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         $name = "test_job";
         $args = array(
             'Body' => json_encode(array(
-                'name' => 'Tavii\SQSJobQueue\Queue\DummyJob',
+                'className' => 'Tavii\SQSJobQueue\Queue\DummyJob',
                 'args' => array('a' => '1' , 'b' => 2)
             ))
         );
