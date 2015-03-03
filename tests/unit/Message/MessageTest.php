@@ -17,10 +17,12 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $args = array(
             1 => 'test'
         );
-        $message = new Message($args, $job);
+        $queueUrl = '/path/to/url';
+        $message = new Message($args, $job, $queueUrl);
         $this->assertEquals($job, $message->getJob());
         $this->assertInternalType('array', $message->getMessage());
         $this->assertEquals($args, $message->getMessage());
+        $this->assertEquals($queueUrl, $message->getQueueUrl());
     }
 }
 

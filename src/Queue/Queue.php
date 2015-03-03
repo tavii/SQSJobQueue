@@ -57,7 +57,7 @@ class Queue implements QueueInterface
         if (!empty($messages)) {
             $args = json_decode($messages['Body'], true);
             $job = new $args['className']($args['args']);
-            return new Message($messages, $job);
+            return new Message($messages, $job, $queueUrl['QueueUrl']);
         }
         return null;
     }
@@ -69,7 +69,7 @@ class Queue implements QueueInterface
     {
         $messageArray = $message->getMessage();
         return $this->client->deleteMessage(array(
-            'QueueUrl' => $messageArray['QueueUrl'],
+            'QueueUrl' => $message->getQueueUrl(),
             'ReceiptHandle' => $messageArray['ReceiptHandle']
         ));
     }
