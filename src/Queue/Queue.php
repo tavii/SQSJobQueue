@@ -27,10 +27,14 @@ class Queue implements QueueInterface
      */
     public function push(JobInterface $job)
     {
+        $queueUrl = $this->client->getQueueUrl(array(
+            'QueueName' => $job->getName()
+        ));
+
         return $this->client->sendMessage(array(
-            'QueueUrl' => $job->getName(),
+            'QueueUrl' => $queueUrl['QueueUrl'],
             'MessageBody' => json_encode(array(
-                'name' => $job->getName(),
+                'className' => $job->getClassName(),
                 'args' => $job->getArgs()
             ))
         ));

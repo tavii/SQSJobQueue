@@ -19,18 +19,27 @@ class QueueTest extends \PHPUnit_Framework_TestCase
      */
     public function キューに保存に保存することができる()
     {
+        $name = 'test';
         $job = Phake::mock('Tavii\SQSJobQueue\Job\Job');
         Phake::when($job)->getName()
-            ->thenReturn('test_job');
+            ->thenReturn($name);
         Phake::when($job)->getArgs()
             ->thenReturn(array('test','teset2'));
+
+        Phake::when($this->client)->getQueueUrl(array('QueueName' => $name))
+            ->thenReturn(array(
+                'QueueUrl' => 'test'
+            ));
+
 
         $queue = new Queue($this->client);
         $queue->push($job);
 
+        Phake::verify($this->client)->getQueueUrl(array('QueueName' => $name));
         Phake::verify($this->client)->sendMessage($this->isType('array'));
-        Phake::verify($job,Phake::times(2))->getName();
+        Phake::verify($job)->getName();
         Phake::verify($job)->getArgs();
+
     }
 
     /**
