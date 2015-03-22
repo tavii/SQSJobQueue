@@ -2,13 +2,16 @@
 <phpunit backupGlobals="false" colors="true">
     <testsuites>
         <testsuite name="SQSJobQueue Test Suite">
-            <directory>./tests/unit/</directory>
+            <directory>./Tests/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/</directory>
+            <directory suffix=".php">./</directory>
+            <exclude>
+                <directory suffix=".php">./vendor/</directory>
+            </exclude>
         </whitelist>
         <blacklist>
             <file>./src/*/*Interface.php</file>

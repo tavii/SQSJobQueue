@@ -22,13 +22,12 @@
       "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
-      "psr-4": {"Tavii\\SQSJobQueue\\": "src/"}
+      "psr-4": {"Tavii\\SQSJobQueue\\": "./"}
     },
     "autoload-dev": {
       "psr-4": {
         "Tavii\\SQSJobQueue\\": [
-          "tests/unit",
-          "tests/functional"
+          "./Tests/"
         ]
       }
     }
