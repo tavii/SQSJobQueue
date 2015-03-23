@@ -19,7 +19,7 @@ interface WorkerInterface
      * @return void
      * @throws RuntimeException
      */
-    public function start($name);
+    public function start($name, $sleep = 5);
 
     /**
      * 常駐しているワーカーを停止させる

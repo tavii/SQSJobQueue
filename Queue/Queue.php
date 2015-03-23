@@ -25,7 +25,7 @@ class Queue implements QueueInterface
     /**
      * {@inheritdoc}
      */
-    public function push(JobInterface $job)
+    public function send(JobInterface $job)
     {
         $queueUrl = $this->client->getQueueUrl(array(
             'QueueName' => $job->getName()
@@ -43,7 +43,7 @@ class Queue implements QueueInterface
     /**
      * {@inheritdoc}
      */
-    public function pull($name)
+    public function receive($name)
     {
         $queueUrl = $this->client->getQueueUrl(array(
             'QueueName' => $name

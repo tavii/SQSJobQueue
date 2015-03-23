@@ -29,7 +29,7 @@ class Worker implements WorkerInterface
      */
     public function run($name)
     {
-        $message = $this->queue->pull($name);
+        $message = $this->queue->receive($name);
         if (is_null($message)) {
             return false;
         }
