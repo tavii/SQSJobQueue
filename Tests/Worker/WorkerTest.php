@@ -31,7 +31,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $worker = new Worker($queue, $storage);
         $actual = $worker->run($name);
 
-        Phake::verify($queue)->send($name);
+        Phake::verify($queue)->receive ($name);
         Phake::verify($message)->getJob();
         Phake::verify($job)->run();
         Phake::verify($queue)->delete($message);
