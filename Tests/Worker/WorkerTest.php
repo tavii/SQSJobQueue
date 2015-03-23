@@ -2,6 +2,7 @@
 namespace Tavii\SQSJobQueue\Worker;
 
 use Phake;
+use Tavii\SQSJobQueue\Storage\EntityInterface;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
 
 class WorkerTest extends \PHPUnit_Framework_TestCase
@@ -57,16 +58,16 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function ワーカーを停止させる()
     {
+
+
         $name = "test";
+        $entity = new TestEntity($name, 'test.com', 1234);
+
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
         $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
         Phake::when($storage)->find($name, 'test.com', null)
             ->thenReturn(array(
-                array(
-                    'queue' => $name,
-                    'server' => 'test.com',
-                    'proc_id' => 1234
-                )
+                $entity
             ));
 
         $worker = new Worker($queue, $storage);
@@ -145,5 +146,52 @@ class TestStorage implements StorageInterface
         // TODO: Implement remove() method.
     }
 
+
+}
+
+class TestEntity implements EntityInterface
+{
+
+    private $queue;
+
+    private $server;
+
+    private $procId;
+
+    /**
+     * @param $queue
+     * @param $server
+     * @param $procId
+     */
+    public function __construct($queue, $server, $procId)
+    {
+        $this->queue = $queue;
+        $this->server = $server;
+        $this->procId = $procId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQueue()
+    {
+        return $this->queue;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServer()
+    {
+        return $this->server;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProcId()
+    {
+        return $this->procId;
+    }
 
 }
