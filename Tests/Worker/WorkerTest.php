@@ -2,6 +2,7 @@
 namespace Tavii\SQSJobQueue\Worker;
 
 use Phake;
+use Tavii\SQSJobQueue\Storage\StorageInterface;
 
 class WorkerTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,11 +15,11 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $name = 'test';
 
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
-        $storage = Phake::mock('Tavii\SQSJobQueue\Storage\DoctrineStorage');
+        $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
         $message = Phake::mock('Tavii\SQSJobQueue\Message\Message');
         $job = Phake::mock('Tavii\SQSJobQueue\Job\Job');
 
-        Phake::when($queue)->pull($name)
+        Phake::when($queue)->receive($name)
             ->thenReturn($message);
 
         Phake::when($message)->getJob()
@@ -30,8 +31,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $worker = new Worker($queue, $storage);
         $actual = $worker->run($name);
 
-        $this->assertTrue($actual);
-        Phake::verify($queue)->pull($name);
+        Phake::verify($queue)->send($name);
         Phake::verify($message)->getJob();
         Phake::verify($job)->run();
         Phake::verify($queue)->delete($message);
@@ -44,7 +44,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     {
         $name = "test";
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
-        $storage = Phake::mock('Tavii\SQSJobQueue\Storage\DoctrineStorage');
+        $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
 
         $worker = new Worker($queue, $storage);
         $worker->start($name);
@@ -59,7 +59,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     {
         $name = "test";
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
-        $storage = Phake::mock('Tavii\SQSJobQueue\Storage\DoctrineStorage');
+        $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
         Phake::when($storage)->get($name, 'test.com', null)
             ->thenReturn(array(
                 array(
@@ -89,4 +89,33 @@ function gethostname() {
 
 function posix_kill($pid, $num) {
     return true;
+}
+
+class TestStorage implements StorageInterface
+{
+    public function all()
+    {
+        // TODO: Implement all() method.
+    }
+
+    public function set($queue, $server, $procId, $status = self::SERVER_STATUS_RUN)
+    {
+        // TODO: Implement set() method.
+    }
+
+    public function get($queue, $server = null, $procId = null)
+    {
+        // TODO: Implement get() method.
+    }
+
+    public function remove($queue, $server = null, $procId = null)
+    {
+        // TODO: Implement remove() method.
+    }
+
+    public function create(array $params = array())
+    {
+        // TODO: Implement create() method.
+    }
+
 }
