@@ -15,6 +15,4 @@ interface StorageInterface
 
     public function remove($queue, $server = null, $procId = null);
 
-
-    public function create(array $params = array());
 }
