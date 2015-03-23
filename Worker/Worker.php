@@ -74,7 +74,7 @@ class Worker implements WorkerInterface
         } else {
             $server = php_uname('n');
         }
-        $processes = $this->storage->get($name, $server, $pid);
+        $processes = $this->storage->find($name, $server, $pid);
         foreach ($processes as $process) {
             if (posix_kill($process['proc_id'], 3)) {
                 $this->storage->remove($process['queue'], $process['server'], (int)$process['proc_id']);

@@ -60,7 +60,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $name = "test";
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
         $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
-        Phake::when($storage)->get($name, 'test.com', null)
+        Phake::when($storage)->find($name, 'test.com', null)
             ->thenReturn(array(
                 array(
                     'queue' => $name,
@@ -72,7 +72,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $worker = new Worker($queue, $storage);
         $worker->stop($name);
 
-        Phake::verify($storage)->get($name, "test.com", null);
+        Phake::verify($storage)->find($name, "test.com", null);
         Phake::verify($storage)->remove($name, "test.com", 1234);
 
     }
@@ -93,29 +93,57 @@ function posix_kill($pid, $num) {
 
 class TestStorage implements StorageInterface
 {
+    /**
+     * @return array
+     */
     public function all()
     {
         // TODO: Implement all() method.
     }
 
-    public function set($queue, $server, $procId, $status = self::SERVER_STATUS_RUN)
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param int $procId
+     * @return array
+     */
+    public function find($queue, $server = null, $procId = null)
+    {
+        // TODO: Implement find() method.
+    }
+
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param int $procId
+     * @return void
+     */
+    public function set($queue, $server, $procId)
     {
         // TODO: Implement set() method.
     }
 
-    public function get($queue, $server = null, $procId = null)
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param int $procId
+     * @return array
+     */
+    public function get($queue, $server, $procId)
     {
         // TODO: Implement get() method.
     }
 
-    public function remove($queue, $server = null, $procId = null)
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param string $procId
+     * @return mixed
+     */
+    public function remove($queue, $server, $procId)
     {
         // TODO: Implement remove() method.
     }
 
-    public function create(array $params = array())
-    {
-        // TODO: Implement create() method.
-    }
 
 }
