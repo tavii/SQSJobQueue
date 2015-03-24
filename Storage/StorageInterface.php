@@ -7,14 +7,41 @@ interface StorageInterface
     const SERVER_STATUS_CLOSE = 20;
     const SERVER_STATUS_UNKNOWN = 40;
 
+    /**
+     * @return array
+     */
     public function all();
 
-    public function set($queue, $server, $procId, $status = self::SERVER_STATUS_RUN);
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param int $procId
+     * @return array
+     */
+    public function find($queue, $server = null, $procId = null);
 
-    public function get($queue, $server = null, $procId = null);
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param int $procId
+     * @return void
+     */
+    public function set($queue, $server, $procId);
 
-    public function remove($queue, $server = null, $procId = null);
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param int $procId
+     * @return array
+     */
+    public function get($queue, $server, $procId);
 
+    /**
+     * @param string $queue
+     * @param string $server
+     * @param string $procId
+     * @return mixed
+     */
+    public function remove($queue, $server, $procId);
 
-    public function create(array $params = array());
 }

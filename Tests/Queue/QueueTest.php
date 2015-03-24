@@ -33,7 +33,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
 
 
         $queue = new Queue($this->client);
-        $queue->push($job);
+        $queue->send($job);
 
         Phake::verify($this->client)->getQueueUrl(array('QueueName' => $name));
         Phake::verify($this->client)->sendMessage($this->isType('array'));
@@ -69,7 +69,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
             ))->thenReturn($collection);
 
         $queue = new Queue($this->client);
-        $job = $queue->pull($name);
+        $job = $queue->receive($name);
 
         $this->assertInstanceOf('Tavii\SQSJobQueue\Message\MessageInterface', $job);
         Phake::verify($collection)->getPath('Messages/*');

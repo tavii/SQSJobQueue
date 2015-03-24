@@ -4,6 +4,7 @@ namespace Tavii\SQSJobQueue\Worker;
 use Tavii\SQSJobQueue\Exception\RuntimeException;
 use Tavii\SQSJobQueue\Queue\Queue;
 use Tavii\SQSJobQueue\Queue\QueueInterface;
+use Tavii\SQSJobQueue\Storage\EntityInterface;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
 
 class Worker implements WorkerInterface
@@ -29,7 +30,7 @@ class Worker implements WorkerInterface
      */
     public function run($name)
     {
-        $message = $this->queue->pull($name);
+        $message = $this->queue->receive($name);
         if (is_null($message)) {
             return false;
         }
@@ -74,10 +75,15 @@ class Worker implements WorkerInterface
         } else {
             $server = php_uname('n');
         }
-        $processes = $this->storage->get($name, $server, $pid);
+        $processes = $this->storage->find($name, $server, $pid);
         foreach ($processes as $process) {
-            if (posix_kill($process['proc_id'], 3)) {
-                $this->storage->remove($process['queue'], $process['server'], (int)$process['proc_id']);
+
+            if (!$process instanceof EntityInterface) {
+                throw new RuntimeException('no support data type.');
+            }
+
+            if (posix_kill($process->getProcId(), 3)) {
+                $this->storage->remove($process->getQueue(), $process->getServer(), $process->getProcId());
             }
         }
     }

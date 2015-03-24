@@ -8,6 +8,8 @@ namespace Tavii\SQSJobQueue\Job;
 interface JobInterface
 {
     /**
+     * Jobを実行する
+     *
      * @return booelan
      */
     public function run();
