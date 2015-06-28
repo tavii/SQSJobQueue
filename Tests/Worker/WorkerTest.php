@@ -77,6 +77,30 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         Phake::verify($storage)->remove($name, "test.com", 1234);
 
     }
+
+    /**
+     * @test
+     */
+    public function ワーカーを強制的に停止させる()
+    {
+        $name = "test";
+        $entity = new TestEntity($name, 'test.com', 1234);
+
+        $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
+        $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
+        Phake::when($storage)->find($name, 'test.com', null)
+            ->thenReturn(array(
+                $entity
+            ));
+
+        $worker = new Worker($queue, $storage);
+        $worker->stop($name, null, true);
+
+        Phake::verify($storage)->find($name, "test.com", null);
+        Phake::verify($storage)->remove($name, "test.com", 1234);
+        Phake::verify($storage)->removeForce($name, "test.com");
+    }
+
 }
 
 
@@ -145,6 +169,12 @@ class TestStorage implements StorageInterface
     {
         // TODO: Implement remove() method.
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeForce($queue, $server) {}
+
 
 
 }

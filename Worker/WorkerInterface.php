@@ -24,7 +24,9 @@ interface WorkerInterface
     /**
      * 常駐しているワーカーを停止させる
      * @param string $name
+     * @param int $pid
+     * @param bool $force
      * @return void
      */
-    public function stop($name, $pid = null);
+    public function stop($name, $pid = null, $force = false);
 }
