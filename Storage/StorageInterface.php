@@ -44,4 +44,13 @@ interface StorageInterface
      */
     public function remove($queue, $server, $procId);
 
+
+    /**
+     * @param $queue
+     * @param $server
+     * @return void
+     */
+    public function removeForce($queue, $server);
+
+
 }
