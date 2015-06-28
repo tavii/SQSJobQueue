@@ -68,7 +68,7 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function stop($name, $pid = null)
+    public function stop($name, $pid = null, $force = false)
     {
         if (function_exists('gethostname')) {
             $server = gethostname();
@@ -86,5 +86,10 @@ class Worker implements WorkerInterface
                 $this->storage->remove($process->getQueue(), $process->getServer(), $process->getProcId());
             }
         }
+
+        if ($force) {
+            $this->storage->removeForce($name, $server);
+        }
+
     }
 }
