@@ -9,4 +9,4 @@ Amazon SQSを利用したJobQueueライブラリです。
 
 ## Requirements
 
-- PHP 5.3+
+- PHP 5.6+

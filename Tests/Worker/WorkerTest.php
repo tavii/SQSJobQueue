@@ -26,7 +26,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         Phake::when($message)->getJob()
             ->thenReturn($job);
 
-        Phake::when($job)->run()
+        Phake::when($job)->execute()
             ->thenReturn(true);
 
         $worker = new Worker($queue, $storage);
@@ -34,7 +34,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
 
         Phake::verify($queue)->receive ($name);
         Phake::verify($message)->getJob();
-        Phake::verify($job)->run();
+        Phake::verify($job)->execute();
         Phake::verify($queue)->delete($message);
     }
 

@@ -20,6 +20,7 @@ class JobTest extends \PHPUnit_Framework_TestCase
 
 class TestJob extends Job
 {
+
     public function getName()
     {
         return 'test_job';
