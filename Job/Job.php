@@ -20,6 +20,18 @@ abstract class Job implements JobInterface
         $this->args = $args;
     }
 
+    /**
+     * @return bool
+     */
+    public function execute()
+    {
+        return $this->run();
+    }
+
+    /**
+     * @return boolean
+     */
+    abstract protected function run();
 
     /**
      * get job name

@@ -2,7 +2,6 @@
 namespace Tavii\SQSJobQueue\Worker;
 
 use Tavii\SQSJobQueue\Exception\RuntimeException;
-use Tavii\SQSJobQueue\Queue\Queue;
 use Tavii\SQSJobQueue\Queue\QueueInterface;
 use Tavii\SQSJobQueue\Storage\EntityInterface;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
@@ -19,6 +18,11 @@ class Worker implements WorkerInterface
      */
     private $storage;
 
+    /**
+     * Worker constructor.
+     * @param QueueInterface $queue
+     * @param StorageInterface $storage
+     */
     public function __construct(QueueInterface $queue, StorageInterface $storage)
     {
         $this->queue = $queue;
@@ -35,7 +39,7 @@ class Worker implements WorkerInterface
             return false;
         }
 
-        if ($message->getJob()->run()) {
+        if ($message->getJob()->execute()) {
             $this->queue->delete($message);
             return true;
         }
