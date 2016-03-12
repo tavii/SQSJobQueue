@@ -12,7 +12,8 @@ interface JobInterface
      *
      * @return booelan
      */
-    public function run();
+    public function execute();
+
 
     /**
      * @return string
