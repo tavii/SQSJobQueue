@@ -12,6 +12,11 @@ interface EntityInterface
     /**
      * @return string
      */
+    public function getPrefix();
+
+    /**
+     * @return string
+     */
     public function getServer();
 
     /**
