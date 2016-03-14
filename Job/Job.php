@@ -35,7 +35,7 @@ abstract class Job implements JobInterface
     abstract protected function run();
 
     /**
-     * @return string
+     * @return QueueName
      */
     public function getJobName()
     {
