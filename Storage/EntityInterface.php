@@ -23,7 +23,7 @@ interface EntityInterface
     /**
      * @return QueueName
      */
-    public function getJobName();
+    public function getQueueName();
 
     /**
      * @return string

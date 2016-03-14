@@ -73,7 +73,7 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function stop(QueueName $queueName, $pid = null, $prefix = null, $force = false)
+    public function stop(QueueName $queueName, $pid = null, $force = false)
     {
         if (function_exists('gethostname')) {
             $server = gethostname();
@@ -88,7 +88,7 @@ class Worker implements WorkerInterface
             }
 
             if (posix_kill($process->getProcId(), 3)) {
-                $this->storage->remove($process->getJobName(), $process->getServer(), $process->getProcId());
+                $this->storage->remove($process->getQueueName(), $process->getServer(), $process->getProcId());
             }
         }
 

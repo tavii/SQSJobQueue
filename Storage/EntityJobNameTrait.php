@@ -12,7 +12,7 @@ use Tavii\SQSJobQueue\Queue\QueueName;
 
 trait EntityJobNameTrait
 {
-    public function getJobName()
+    public function getQueueName()
     {
         return new QueueName($this->getQueue(), $this->getPrefix());
     }
