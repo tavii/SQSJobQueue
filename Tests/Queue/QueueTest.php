@@ -21,7 +21,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
     {
         $name = 'test';
         $job = Phake::mock('Tavii\SQSJobQueue\Job\Job');
-        Phake::when($job)->getName()
+        Phake::when($job)->getQueueName()
             ->thenReturn($name);
         Phake::when($job)->getArgs()
             ->thenReturn(array('test','teset2'));
@@ -37,7 +37,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
 
         Phake::verify($this->client)->getQueueUrl(array('QueueName' => $name));
         Phake::verify($this->client)->sendMessage($this->isType('array'));
-        Phake::verify($job)->getName();
+        Phake::verify($job)->getQueueName();
         Phake::verify($job)->getArgs();
 
     }
