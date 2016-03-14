@@ -119,7 +119,7 @@ function posix_kill($pid, $num) {
 class TestStorage implements StorageInterface
 {
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function all()
     {
@@ -127,45 +127,33 @@ class TestStorage implements StorageInterface
     }
 
     /**
-     * @param string $queue
-     * @param string $server
-     * @param int $procId
-     * @return array
+     * {@inheritdoc}
      */
-    public function find($queue, $server = null, $procId = null)
+    public function find($queue, $server = null, $procId = null, $prefix = null)
     {
         // TODO: Implement find() method.
     }
 
     /**
-     * @param string $queue
-     * @param string $server
-     * @param int $procId
-     * @return void
+     * {@inheritdoc}
      */
-    public function set($queue, $server, $procId)
+    public function set($queue, $server, $procId, $prefix)
     {
         // TODO: Implement set() method.
     }
 
     /**
-     * @param string $queue
-     * @param string $server
-     * @param int $procId
-     * @return array
+     * {@inheritdoc}
      */
-    public function get($queue, $server, $procId)
+    public function get($queue, $server, $procId, $prefix)
     {
         // TODO: Implement get() method.
     }
 
     /**
-     * @param string $queue
-     * @param string $server
-     * @param string $procId
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function remove($queue, $server, $procId)
+    public function remove($queue, $server, $procId, $prefix)
     {
         // TODO: Implement remove() method.
     }
@@ -188,10 +176,10 @@ class TestEntity implements EntityInterface
 
     private $procId;
 
+    private $prefix;
+
     /**
-     * @param $queue
-     * @param $server
-     * @param $procId
+     * {@inheritdoc}
      */
     public function __construct($queue, $server, $procId)
     {
@@ -201,7 +189,7 @@ class TestEntity implements EntityInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getQueue()
     {
@@ -209,7 +197,7 @@ class TestEntity implements EntityInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getServer()
     {
@@ -217,11 +205,20 @@ class TestEntity implements EntityInterface
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function getProcId()
     {
         return $this->procId;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
 
 }
