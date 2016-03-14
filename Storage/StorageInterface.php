@@ -26,7 +26,6 @@ interface StorageInterface
      * @param QueueName $queueName
      * @param string $server
      * @param int $procId
-     * @param string $prefix
      * @return void
      */
     public function set(QueueName $queueName, $server, $procId);
@@ -35,7 +34,6 @@ interface StorageInterface
      * @param QueueName $queueName
      * @param string $server
      * @param int $procId
-     * @param string $prefix
      * @return array
      */
     public function get(QueueName $queueName, $server, $procId);
@@ -43,8 +41,7 @@ interface StorageInterface
     /**
      * @param QueueName $queueName
      * @param string $server
-     * @param string $procId
-     * @param string $prefix
+     * @param int $procId
      * @return mixed
      */
     public function remove(QueueName $queueName, $server, $procId);

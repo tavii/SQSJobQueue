@@ -35,6 +35,14 @@ final class QueueName
     /**
      * @return string
      */
+    public function __toString()
+    {
+        return $this->getQueueName();
+    }
+
+    /**
+     * @return string
+     */
     public function getQueueName()
     {
         if (empty($this->prefix)) {
@@ -42,4 +50,22 @@ final class QueueName
         }
         return $this->prefix . "_" . $this->name;
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+
 }
