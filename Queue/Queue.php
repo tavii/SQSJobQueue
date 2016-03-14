@@ -3,7 +3,7 @@ namespace Tavii\SQSJobQueue\Queue;
 
 use Aws\Sqs\SqsClient;
 use Tavii\SQSJobQueue\Job\JobInterface;
-use Tavii\SQSJobQueue\Job\JobName;
+use Tavii\SQSJobQueue\Queue\QueueName;
 use Tavii\SQSJobQueue\Message\Message;
 use Tavii\SQSJobQueue\Message\MessageInterface;
 
@@ -44,10 +44,10 @@ class Queue implements QueueInterface
     /**
      * {@inheritdoc}
      */
-    public function receive(JobName $jobName)
+    public function receive(QueueName $queueName)
     {
         $queueUrl = $this->client->getQueueUrl(array(
-            'QueueName' => $jobName->getQueueName()
+            'QueueName' => $queueName->getQueueName()
         ));
 
         $result = $this->client->receiveMessage(array(

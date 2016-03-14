@@ -1,5 +1,6 @@
 <?php
 namespace Tavii\SQSJobQueue\Job;
+use Tavii\SQSJobQueue\Queue\QueueName;
 
 /**
  * Class Job
@@ -38,7 +39,7 @@ abstract class Job implements JobInterface
      */
     public function getJobName()
     {
-        return new JobName($this->getName(), $this->getPrefix());
+        return new QueueName($this->getName(), $this->getPrefix());
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace Tavii\SQSJobQueue\Storage;
 
-use Tavii\SQSJobQueue\Job\JobName;
+use Tavii\SQSJobQueue\Queue\QueueName;
 
 interface StorageInterface
 {
@@ -15,47 +15,47 @@ interface StorageInterface
     public function all();
 
     /**
-     * @param JobName $jobName
+     * @param QueueName $queueName
      * @param string|null $server
      * @param string|null $procId
      * @return EntityInterface
      */
-    public function find(JobName $jobName, $server = null, $procId = null);
+    public function find(QueueName $queueName, $server = null, $procId = null);
 
     /**
-     * @param JobName $jobName
+     * @param QueueName $queueName
      * @param string $server
      * @param int $procId
      * @param string $prefix
      * @return void
      */
-    public function set(JobName $jobName, $server, $procId);
+    public function set(QueueName $queueName, $server, $procId);
 
     /**
-     * @param JobName $jobName
+     * @param QueueName $queueName
      * @param string $server
      * @param int $procId
      * @param string $prefix
      * @return array
      */
-    public function get(JobName $jobName, $server, $procId);
+    public function get(QueueName $queueName, $server, $procId);
 
     /**
-     * @param JobName $jobName
+     * @param QueueName $queueName
      * @param string $server
      * @param string $procId
      * @param string $prefix
      * @return mixed
      */
-    public function remove(JobName $jobName, $server, $procId);
+    public function remove(QueueName $queueName, $server, $procId);
 
 
     /**
-     * @param JobName $jobName
+     * @param QueueName $queueName
      * @param $server
      * @return void
      */
-    public function removeForce(JobName $jobName, $server);
+    public function removeForce(QueueName $queueName, $server);
 
 
 }

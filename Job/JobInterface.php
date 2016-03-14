@@ -1,5 +1,6 @@
 <?php
 namespace Tavii\SQSJobQueue\Job;
+use Tavii\SQSJobQueue\Queue\QueueName;
 
 /**
  * Interface JobInterface
@@ -26,7 +27,7 @@ interface JobInterface
     public function getPrefix();
 
     /**
-     * @return JobName
+     * @return QueueName
      */
     public function getJobName();
 

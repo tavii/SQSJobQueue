@@ -8,12 +8,12 @@
 namespace Tavii\SQSJobQueue\Storage;
 
 
-use Tavii\SQSJobQueue\Job\JobName;
+use Tavii\SQSJobQueue\Queue\QueueName;
 
 trait EntityJobNameTrait
 {
     public function getJobName()
     {
-        return new JobName($this->getQueue(), $this->getPrefix());
+        return new QueueName($this->getQueue(), $this->getPrefix());
     }
 }

@@ -2,7 +2,7 @@
 namespace Tavii\SQSJobQueue\Worker;
 
 use Phake;
-use Tavii\SQSJobQueue\Job\JobName;
+use Tavii\SQSJobQueue\Queue\QueueName;
 use Tavii\SQSJobQueue\Storage\EntityInterface;
 use Tavii\SQSJobQueue\Storage\EntityJobNameTrait;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
@@ -15,7 +15,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function ワーカーを実行する()
     {
-        $name = new JobName('test');
+        $name = new QueueName('test');
 
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
         $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
@@ -45,7 +45,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function ワーカーを実行させる()
     {
-        $name = new JobName("test");
+        $name = new QueueName("test");
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
         $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
 
@@ -62,7 +62,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     {
 
 
-        $name = new JobName("test");
+        $name = new QueueName("test");
         $entity = new TestEntity($name, 'test.com', 1234);
 
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
@@ -76,7 +76,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $worker->stop($name);
 
         Phake::verify($storage)->find($name, "test.com", null);
-        Phake::verify($storage)->remove($this->isInstanceOf(JobName::class), "test.com", 1234);
+        Phake::verify($storage)->remove($this->isInstanceOf(QueueName::class), "test.com", 1234);
 
     }
 
@@ -130,7 +130,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function find(JobName $jobName, $server = null, $procId = null)
+    public function find(QueueName $queueName, $server = null, $procId = null)
     {
         // TODO: Implement find() method.
     }
@@ -138,7 +138,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function set(JobName $jobName, $server, $procId)
+    public function set(QueueName $queueName, $server, $procId)
     {
         // TODO: Implement set() method.
     }
@@ -146,7 +146,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function get(JobName $jobName, $server, $procId)
+    public function get(QueueName $queueName, $server, $procId)
     {
         // TODO: Implement get() method.
     }
@@ -154,7 +154,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function remove(JobName $jobName, $server, $procId)
+    public function remove(QueueName $queueName, $server, $procId)
     {
         // TODO: Implement remove() method.
     }
@@ -162,7 +162,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function removeForce(JobName $jobName, $server) {}
+    public function removeForce(QueueName $queueName, $server) {}
 
 
 

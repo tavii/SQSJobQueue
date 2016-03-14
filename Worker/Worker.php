@@ -2,7 +2,7 @@
 namespace Tavii\SQSJobQueue\Worker;
 
 use Tavii\SQSJobQueue\Exception\RuntimeException;
-use Tavii\SQSJobQueue\Job\JobName;
+use Tavii\SQSJobQueue\Queue\QueueName;
 use Tavii\SQSJobQueue\Queue\QueueInterface;
 use Tavii\SQSJobQueue\Storage\EntityInterface;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
@@ -33,9 +33,9 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function run(JobName $jobName)
+    public function run(QueueName $queueName)
     {
-        $message = $this->queue->receive($jobName);
+        $message = $this->queue->receive($queueName);
         if (is_null($message)) {
             return false;
         }
@@ -50,7 +50,7 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function start(JobName $jobName, $sleep = 5, $prefix = null)
+    public function start(QueueName $queueName, $sleep = 5, $prefix = null)
     {
         $pid = pcntl_fork();
         if ($pid === -1) {
@@ -61,10 +61,10 @@ class Worker implements WorkerInterface
             } else {
                 $server = php_uname('n');
             }
-            $this->storage->set($jobName, $server, $pid);
+            $this->storage->set($queueName, $server, $pid);
         } else {
             while(true) {
-                $this->run($jobName);
+                $this->run($queueName);
                 sleep($sleep);
             }
         }
@@ -73,14 +73,14 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function stop(JobName $jobName, $pid = null, $prefix = null, $force = false)
+    public function stop(QueueName $queueName, $pid = null, $prefix = null, $force = false)
     {
         if (function_exists('gethostname')) {
             $server = gethostname();
         } else {
             $server = php_uname('n');
         }
-        $processes = $this->storage->find($jobName, $server, $pid);
+        $processes = $this->storage->find($queueName, $server, $pid);
         foreach ($processes as $process) {
 
             if (!$process instanceof EntityInterface) {
@@ -93,7 +93,7 @@ class Worker implements WorkerInterface
         }
 
         if ($force) {
-            $this->storage->removeForce($jobName, $server);
+            $this->storage->removeForce($queueName, $server);
         }
 
     }

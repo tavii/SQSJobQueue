@@ -4,7 +4,7 @@ namespace Tavii\SQSJobQueue\Queue;
 use Phake;
 use Aws\Sqs\SqsClient;
 use Tavii\SQSJobQueue\Job\Job;
-use Tavii\SQSJobQueue\Job\JobName;
+use Tavii\SQSJobQueue\Queue\QueueName;
 
 class QueueTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
      */
     public function キューに保存に保存することができる()
     {
-        $name = new JobName('test');
+        $name = new QueueName('test');
         $job = Phake::mock('Tavii\SQSJobQueue\Job\Job');
         Phake::when($job)->getJobName()
             ->thenReturn($name);
@@ -70,7 +70,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
             ))->thenReturn($collection);
 
         $queue = new Queue($this->client);
-        $job = $queue->receive(new JobName($name));
+        $job = $queue->receive(new QueueName($name));
 
         $this->assertInstanceOf('Tavii\SQSJobQueue\Message\MessageInterface', $job);
         Phake::verify($collection)->getPath('Messages/*');

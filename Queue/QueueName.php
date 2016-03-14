@@ -5,10 +5,10 @@
  * Date: 2016/03/14
  */
 
-namespace Tavii\SQSJobQueue\Job;
+namespace Tavii\SQSJobQueue\Queue;
 
 
-final class JobName
+final class QueueName
 {
     /**
      * @var string
