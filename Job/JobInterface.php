@@ -26,9 +26,9 @@ interface JobInterface
     public function getPrefix();
 
     /**
-     * @return string
+     * @return JobName
      */
-    public function getQueueName();
+    public function getJobName();
 
     /**
      * @return string

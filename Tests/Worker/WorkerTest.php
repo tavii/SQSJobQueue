@@ -2,7 +2,9 @@
 namespace Tavii\SQSJobQueue\Worker;
 
 use Phake;
+use Tavii\SQSJobQueue\Job\JobName;
 use Tavii\SQSJobQueue\Storage\EntityInterface;
+use Tavii\SQSJobQueue\Storage\EntityJobNameTrait;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
 
 class WorkerTest extends \PHPUnit_Framework_TestCase
@@ -129,7 +131,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function find($queue, $server = null, $procId = null, $prefix = null)
+    public function find(JobName $jobName, $server = null, $procId = null)
     {
         // TODO: Implement find() method.
     }
@@ -137,7 +139,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function set($queue, $server, $procId, $prefix)
+    public function set(JobName $jobName, $server, $procId)
     {
         // TODO: Implement set() method.
     }
@@ -145,7 +147,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function get($queue, $server, $procId, $prefix)
+    public function get(JobName $jobName, $server, $procId)
     {
         // TODO: Implement get() method.
     }
@@ -153,7 +155,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function remove($queue, $server, $procId, $prefix)
+    public function remove(JobName $jobName, $server, $procId)
     {
         // TODO: Implement remove() method.
     }
@@ -161,7 +163,7 @@ class TestStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function removeForce($queue, $server) {}
+    public function removeForce(JobName $jobName, $server) {}
 
 
 
@@ -169,6 +171,7 @@ class TestStorage implements StorageInterface
 
 class TestEntity implements EntityInterface
 {
+    use EntityJobNameTrait;
 
     private $queue;
 

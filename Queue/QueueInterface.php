@@ -2,6 +2,7 @@
 namespace Tavii\SQSJobQueue\Queue;
 
 use Tavii\SQSJobQueue\Job\JobInterface;
+use Tavii\SQSJobQueue\Job\JobName;
 use Tavii\SQSJobQueue\Message\Message;
 use Tavii\SQSJobQueue\Message\MessageInterface;
 
@@ -14,10 +15,10 @@ interface QueueInterface
     /**
      * キューからジョブを取り出す
      *
-     * @param $name
+     * @param JobName $name
      * @return Message
      */
-    public function receive($name);
+    public function receive(JobName $name);
 
     /**
      * Jobをキューに登録する

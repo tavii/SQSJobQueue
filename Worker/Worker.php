@@ -2,6 +2,7 @@
 namespace Tavii\SQSJobQueue\Worker;
 
 use Tavii\SQSJobQueue\Exception\RuntimeException;
+use Tavii\SQSJobQueue\Job\JobName;
 use Tavii\SQSJobQueue\Queue\QueueInterface;
 use Tavii\SQSJobQueue\Storage\EntityInterface;
 use Tavii\SQSJobQueue\Storage\StorageInterface;
@@ -32,9 +33,9 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function run($name)
+    public function run(JobName $jobName)
     {
-        $message = $this->queue->receive($name);
+        $message = $this->queue->receive($jobName);
         if (is_null($message)) {
             return false;
         }
@@ -49,7 +50,7 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function start($name, $sleep = 5)
+    public function start(JobName $jobName, $sleep = 5, $prefix = null)
     {
         $pid = pcntl_fork();
         if ($pid === -1) {
@@ -60,10 +61,10 @@ class Worker implements WorkerInterface
             } else {
                 $server = php_uname('n');
             }
-            $this->storage->set($name, $server, $pid);
+            $this->storage->set($jobName, $server, $pid);
         } else {
             while(true) {
-                $this->run($name);
+                $this->run($jobName);
                 sleep($sleep);
             }
         }
@@ -72,14 +73,14 @@ class Worker implements WorkerInterface
     /**
      * {@inheritdoc}
      */
-    public function stop($name, $pid = null, $force = false)
+    public function stop(JobName $jobName, $pid = null, $prefix = null, $force = false)
     {
         if (function_exists('gethostname')) {
             $server = gethostname();
         } else {
             $server = php_uname('n');
         }
-        $processes = $this->storage->find($name, $server, $pid);
+        $processes = $this->storage->find($jobName, $server, $pid);
         foreach ($processes as $process) {
 
             if (!$process instanceof EntityInterface) {
@@ -87,12 +88,12 @@ class Worker implements WorkerInterface
             }
 
             if (posix_kill($process->getProcId(), 3)) {
-                $this->storage->remove($process->getQueue(), $process->getServer(), $process->getProcId());
+                $this->storage->remove($process->getJobName(), $process->getServer(), $process->getProcId());
             }
         }
 
         if ($force) {
-            $this->storage->removeForce($name, $server);
+            $this->storage->removeForce($jobName, $server);
         }
 
     }

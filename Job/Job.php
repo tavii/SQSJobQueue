@@ -36,11 +36,10 @@ abstract class Job implements JobInterface
     /**
      * @return string
      */
-    public function getQueueName()
+    public function getJobName()
     {
-        return $this->getPrefix() . '_' . $this->getName();
+        return new JobName($this->getName(), $this->getPrefix());
     }
-
 
     /**
      * get job name

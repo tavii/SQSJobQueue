@@ -2,6 +2,8 @@
 namespace Tavii\SQSJobQueue\Storage;
 
 
+use Tavii\SQSJobQueue\Job\JobName;
+
 interface EntityInterface
 {
     /**
@@ -13,6 +15,11 @@ interface EntityInterface
      * @return string
      */
     public function getPrefix();
+
+    /**
+     * @return JobName
+     */
+    public function getJobName();
 
     /**
      * @return string
