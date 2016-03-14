@@ -4,6 +4,10 @@ namespace Tavii\SQSJobQueue\Storage;
 
 use Tavii\SQSJobQueue\Queue\QueueName;
 
+/**
+ * Interface EntityInterface
+ * @package Tavii\SQSJobQueue\Storage
+ */
 interface EntityInterface
 {
     /**
