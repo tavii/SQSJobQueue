@@ -23,6 +23,16 @@ interface JobInterface
     /**
      * @return string
      */
+    public function getPrefix();
+
+    /**
+     * @return string
+     */
+    public function getQueueName();
+
+    /**
+     * @return string
+     */
     public function getClassName();
 
     /**

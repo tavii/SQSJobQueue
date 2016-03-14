@@ -26,6 +26,12 @@ class TestJob extends Job
         return 'test_job';
     }
 
+    public function getPrefix()
+    {
+        return 'job_test';
+    }
+
+
     public function run()
     {
         return true;

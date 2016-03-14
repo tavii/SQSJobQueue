@@ -28,7 +28,7 @@ class Queue implements QueueInterface
     public function send(JobInterface $job)
     {
         $queueUrl = $this->client->getQueueUrl(array(
-            'QueueName' => $job->getName()
+            'QueueName' => $job->getQueueName()
         ));
 
         return $this->client->sendMessage(array(

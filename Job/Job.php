@@ -34,6 +34,15 @@ abstract class Job implements JobInterface
     abstract protected function run();
 
     /**
+     * @return string
+     */
+    public function getQueueName()
+    {
+        return $this->getPrefix() . '_' . $this->getName();
+    }
+
+
+    /**
      * get job name
      * @return string
      */

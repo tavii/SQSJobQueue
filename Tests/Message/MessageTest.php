@@ -32,10 +32,16 @@ class DummyJob extends Job
      * @param array $args
      * @return booelan
      */
-    public function run()
+    protected function run()
     {
         return true;
     }
+
+    public function getPrefix()
+    {
+        return 'message_test';
+    }
+
 
     /**
      * @return string
