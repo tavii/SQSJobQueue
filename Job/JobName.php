@@ -26,7 +26,7 @@ final class JobName
      * @param string $prefix
      * @param string $separator
      */
-    public function __construct($name, $prefix)
+    public function __construct($name, $prefix = "")
     {
         $this->name = $name;
         $this->prefix = $prefix;

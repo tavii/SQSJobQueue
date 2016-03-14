@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c665c7a775710e8d00515e2a3919b3f3",
-    "content-hash": "582160b32a6393dc59ea85053e890d77",
+    "hash": "b65c8a11e532eb09484054c75259a430",
+    "content-hash": "ed357d82fc81d79fbdb56abec0925fb5",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -496,21 +496,20 @@
         },
         {
             "name": "phake/phake",
-            "version": "dev-master",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mlively/Phake.git",
-                "reference": "5d880b31f57dba8502ac709157bea4ed829b5875"
+                "reference": "15d688aa23e6d5db433accb75feea6c0a1cdd1f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mlively/Phake/zipball/5d880b31f57dba8502ac709157bea4ed829b5875",
-                "reference": "5d880b31f57dba8502ac709157bea4ed829b5875",
+                "url": "https://api.github.com/repos/mlively/Phake/zipball/15d688aa23e6d5db433accb75feea6c0a1cdd1f1",
+                "reference": "15d688aa23e6d5db433accb75feea6c0a1cdd1f1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
-                "sebastian/comparator": "~1.1"
+                "php": ">=5.3.3"
             },
             "require-dev": {
                 "doctrine/common": "2.3.*",
@@ -549,7 +548,7 @@
                 "mock",
                 "testing"
             ],
-            "time": "2015-02-23 08:34:12"
+            "time": "2015-03-21 18:05:30"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -2150,7 +2149,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4|~7.0"
+        "php": ">=5.6|~7.0"
     },
     "platform-dev": []
 }

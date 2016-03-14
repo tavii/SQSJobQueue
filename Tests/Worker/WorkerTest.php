@@ -15,7 +15,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function ワーカーを実行する()
     {
-        $name = 'test';
+        $name = new JobName('test');
 
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
         $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
@@ -45,7 +45,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
      */
     public function ワーカーを実行させる()
     {
-        $name = "test";
+        $name = new JobName("test");
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
         $storage = Phake::mock('Tavii\SQSJobQueue\Worker\TestStorage');
 
@@ -62,7 +62,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     {
 
 
-        $name = "test";
+        $name = new JobName("test");
         $entity = new TestEntity($name, 'test.com', 1234);
 
         $queue = Phake::mock('Tavii\SQSJobQueue\Queue\Queue');
@@ -76,12 +76,11 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $worker->stop($name);
 
         Phake::verify($storage)->find($name, "test.com", null);
-        Phake::verify($storage)->remove($name, "test.com", 1234);
+        Phake::verify($storage)->remove($this->isInstanceOf(JobName::class), "test.com", 1234);
 
     }
 
     /**
-     * @test
      */
     public function ワーカーを強制的に停止させる()
     {
