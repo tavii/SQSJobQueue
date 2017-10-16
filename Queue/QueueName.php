@@ -48,7 +48,7 @@ final class QueueName
         if (empty($this->prefix)) {
             return $this->name;
         }
-        return $this->prefix."_".$this->name;
+        return $this->prefix.$this->name;
     }
 
     /**
